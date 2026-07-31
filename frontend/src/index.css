@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --wcolor: #ff6a1a;
+    --wtint: #fff3ec;
+  }
+
+  html,
+  body,
+  #root {
+    background: theme('colors.bg');
+    color: theme('colors.ink');
+    min-height: 100vh;
+  }
+
+  body {
+    overflow-x: hidden;
+    font-family: theme('fontFamily.sans');
+  }
+}
+
+@layer components {
+  /* Huge hero type — mirrors the mockup's Archivo Black display treatment. */
+  .huge {
+    font-family: theme('fontFamily.display');
+    font-size: clamp(80px, 13vw, 200px);
+    line-height: 0.88;
+    letter-spacing: -3px;
+    text-transform: uppercase;
+  }
+  .huge .slash {
+    color: #cfd3d5;
+    margin: 0 10px;
+    font-weight: 400;
+  }
+
+  /* Pill nav link */
+  .nav-link {
+    padding: 8px 20px;
+    border-radius: 999px;
+    color: #333;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .nav-link:hover,
+  .nav-link.active {
+    background: theme('colors.ink');
+    color: #fff;
+  }
+
+  .input {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid theme('colors.line');
+    background: #fff;
+    padding: 12px 14px;
+    font-size: 15px;
+    color: theme('colors.ink');
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .input:focus {
+    border-color: theme('colors.ink');
+  }
+
+  .cta-arrow {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #fff;
+    color: theme('colors.ink');
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 4px;
+  }
+}
