@@ -1,4 +1,5 @@
 import type { Widget } from '@busybuddy/shared';
+import productImage from '../assets/product-image.webp';
 
 interface ScreenProps {
   widget: Widget;
@@ -25,11 +26,16 @@ function WidgetScreen({ widget, isMobile }: ScreenProps) {
 
       <div className={`flex flex-1 gap-2 ${isMobile ? 'flex-col' : ''}`}>
         <div
-          className={`flex flex-1 items-center justify-center rounded-md bg-[#f2f4f6] text-[20px] ${
+          className={`flex flex-1 items-center justify-center overflow-hidden rounded-md bg-[#f2f4f6] ${
             isMobile ? 'min-h-[60px]' : ''
           }`}
         >
-          🎧
+          <img
+            src={productImage}
+            alt="Product preview"
+            className="h-full w-full object-cover"
+            loading="lazy"
+          />
         </div>
         <div className="flex flex-[1.2] flex-col gap-1">
           <div className="h-2 w-[90%] rounded-sm bg-[#222]" />
@@ -57,7 +63,53 @@ function WidgetScreen({ widget, isMobile }: ScreenProps) {
                 color: 'var(--wcolor)',
               }}
             >
-              {widget.slotLabel}
+              {/* Grounded in each app's real editor preview in the
+                  BusyBuddy_v2 monorepo (render*Preview() in
+                  BundleEditor/BuyXGetYEditor/VolumeDiscountEditor/
+                  MixAndMatchEditor), not a generic label for all four. */}
+              {widget.id === 'bundle' && (
+                <span className="flex items-center gap-1">
+                  <span className="h-3 w-3 rounded-sm bg-white/60" />
+                  <span
+                    className="flex h-2.5 w-2.5 items-center justify-center rounded-[2px] text-white"
+                    style={{ background: 'var(--wcolor)' }}
+                  >
+                    +
+                  </span>
+                  <span className="h-3 w-3 rounded-sm bg-white/60" />
+                  <span className="ml-1">Save 15%</span>
+                </span>
+              )}
+              {widget.id === 'bogo' && <span>YOU GET 1 FREE</span>}
+              {widget.id === 'volume' && (
+                <span className="flex items-center gap-1">
+                  <span className="rounded-sm bg-white/60 px-1">Buy 1</span>
+                  <span
+                    className="rounded-sm px-1 text-white"
+                    style={{ background: 'var(--wcolor)' }}
+                  >
+                    Buy 3 · 20% off
+                  </span>
+                </span>
+              )}
+              {widget.id === 'mixmatch' && (
+                <span className="flex items-center gap-1">
+                  {['1', '3', '5'].map((n) => (
+                    <span
+                      key={n}
+                      className="flex h-3.5 w-3.5 items-center justify-center rounded-full"
+                      style={
+                        n === '3'
+                          ? { background: 'var(--wcolor)', color: 'white' }
+                          : { background: 'rgba(255,255,255,0.6)' }
+                      }
+                    >
+                      {n}
+                    </span>
+                  ))}
+                </span>
+              )}
+              {widget.id === 'inactive' && <span>{widget.slotLabel}</span>}
             </div>
           )}
           <div className="rounded bg-ink py-[5px] text-center text-[8px] font-semibold text-white">
