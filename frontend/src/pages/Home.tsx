@@ -19,14 +19,10 @@ export default function Home() {
         <Nav />
       </div>
 
-      {/* Stage: absolute art-directed layout on xl, flowing stack below.
-          The headline sits in its own clear band up top; the device preview
-          + blurbs live in a lower band so nothing ever sits on top of the
-          "POWER/UP YOUR/STORE" type (see #6 review feedback - it used to be
-          centered directly over the headline and hid most of it). */}
+      {/* Stage: absolute art-directed layout on xl, flowing stack below. */}
       <section className="relative px-5 pb-10 pt-[120px] md:px-10 xl:min-h-screen xl:pt-[130px]">
         {/* Huge hero type */}
-        <div className="huge relative z-[1] xl:max-w-[68vw]">
+        <div className="huge relative z-[1]">
           <div>
             POWER<span className="slash">/</span>UP
           </div>
@@ -42,7 +38,7 @@ export default function Home() {
         </div>
 
         {/* Stat — top right on xl */}
-        <div className="mt-8 text-right xl:absolute xl:right-10 xl:top-[40px] xl:z-[5] xl:mt-0">
+        <div className="mt-8 text-right xl:absolute xl:right-10 xl:top-[130px] xl:z-[5] xl:mt-0">
           <div className="font-display text-[34px] leading-none">6+</div>
           <div className="mt-1.5 text-[13px] text-muted">
             Conversion
@@ -51,8 +47,35 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Left copy + CTA — directly under the headline on xl */}
-        <div className="mx-auto max-w-[720px] xl:absolute xl:left-10 xl:top-[400px] xl:z-[5] xl:max-w-[300px]">
+        {/* Center device preview */}
+        <div className="mx-auto my-8 w-full max-w-[720px] xl:absolute xl:left-1/2 xl:top-[320px] xl:z-[2] xl:my-0 xl:max-w-[min(55vw,780px)] xl:-translate-x-1/2">
+          <DevicePreview widget={widget} />
+        </div>
+
+        {/* Blurbs — floating right on xl, inline below */}
+        <div className="mx-auto grid max-w-[720px] gap-3 xl:contents">
+          {widget.blurbs.map((b, i) => (
+            <div
+              key={i}
+              className={`rounded-2xl border border-line bg-white/85 p-[12px_14px] text-[12px] leading-snug shadow-blurb backdrop-blur xl:absolute xl:z-[5] xl:max-w-[220px] ${
+                i === 0
+                  ? 'xl:right-[60px] xl:top-[190px]'
+                  : i === 1
+                    ? 'xl:right-[30px] xl:top-[340px]'
+                    : 'xl:right-[80px] xl:top-[500px]'
+              }`}
+            >
+              <div className="mb-1 flex items-center gap-1.5 text-[13px] font-bold">
+                <span className="h-2 w-2 rounded-full" style={{ background: widget.color }} />
+                {b.t}
+              </div>
+              <p className="text-[#555]">{b.d}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Left copy + CTA */}
+        <div className="mx-auto max-w-[720px] xl:absolute xl:left-10 xl:top-[470px] xl:z-[5] xl:max-w-[260px]">
           <p className="mb-[22px] text-[15px] leading-relaxed text-[#333]">
             Six lightweight widgets that turn your storefront into a conversion machine — no code
             required.
@@ -66,35 +89,6 @@ export default function Home() {
               <ArrowUpRight />
             </span>
           </Link>
-        </div>
-
-        {/* Center device preview — pushed below the headline's baseline, not
-            over it, and given the right-hand column so the left copy above
-            has room to breathe. */}
-        <div className="mx-auto my-8 w-full max-w-[600px] xl:absolute xl:right-10 xl:top-[420px] xl:z-[2] xl:my-0 xl:max-w-[40vw]">
-          <DevicePreview widget={widget} />
-        </div>
-
-        {/* Blurbs — floating around the device preview on xl, inline below */}
-        <div className="mx-auto grid max-w-[720px] gap-3 xl:contents">
-          {widget.blurbs.map((b, i) => (
-            <div
-              key={i}
-              className={`rounded-2xl border border-line bg-white/85 p-[12px_14px] text-[12px] leading-snug shadow-blurb backdrop-blur xl:absolute xl:z-[5] xl:max-w-[220px] ${
-                i === 0
-                  ? 'xl:right-[calc(40vw+30px)] xl:top-[400px]'
-                  : i === 1
-                    ? 'xl:right-10 xl:top-[420px]'
-                    : 'xl:right-[calc(40vw+10px)] xl:top-[650px]'
-              }`}
-            >
-              <div className="mb-1 flex items-center gap-1.5 text-[13px] font-bold">
-                <span className="h-2 w-2 rounded-full" style={{ background: widget.color }} />
-                {b.t}
-              </div>
-              <p className="text-[#555]">{b.d}</p>
-            </div>
-          ))}
         </div>
 
         {/* Widget selector cards */}
