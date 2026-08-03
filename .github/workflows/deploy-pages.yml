@@ -1,0 +1,67 @@
+name: deploy-pages
+
+# Builds and publishes the public marketing site (frontend/, plus the
+# shared/ package it depends on) to GitHub Pages. backend/ is intentionally
+# not built or deployed here - Pages only serves static files, and this
+# repo's public site is frontend-only (the lead form / health widget
+# degrade gracefully with no API configured, see frontend/src/lib/api.ts).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build shared package
+        run: npm run build:shared
+
+      - name: Build frontend
+        env:
+          VITE_BASE_PATH: /${{ github.event.repository.name }}/
+        run: npm run build:frontend
+
+      # GitHub Pages has no server-side rewrites, so a deep link / refresh on
+      # a client-routed path (e.g. /pricing) 404s by default. Serving the
+      # same index.html as the 404 page hands control back to React Router,
+      # which then renders the right route client-side.
+      - name: Add SPA fallback for client-side routing
+        run: cp frontend/dist/index.html frontend/dist/404.html
+
+      - uses: actions/configure-pages@v4
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: frontend/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
