@@ -17,19 +17,38 @@ function WidgetScreen({ widget, isMobile }: ScreenProps) {
   return (
     <div className="absolute inset-0 flex flex-col gap-2 p-3 text-[10px]" style={style}>
       <div
-        className="flex h-[18px] items-center justify-center rounded text-[8px] font-semibold text-white"
+        className="flex h-[18px] items-center justify-center gap-1.5 rounded text-[8px] font-semibold text-white"
         style={{ background: 'var(--wcolor)' }}
       >
-        {isAnnouncement ? widget.slotLabel : 'YOUR STORE'}
+        <span>{isAnnouncement ? widget.slotLabel : 'YOUR STORE'}</span>
+        {/* Compact countdown, matching the real announcement bar extension's
+            "Classic" timer theme (extensions/bogo-shopify-app/assets/
+            announcement-bar-extension.js renderTimerBody) - the real widget
+            supports countdown urgency banners, this mockup previously
+            didn't show one at all. */}
+        {isAnnouncement && (
+          <span className="rounded-sm bg-black/20 px-1 py-[1px] font-mono tabular-nums">
+            06:14:22
+          </span>
+        )}
       </div>
 
       <div className={`flex flex-1 gap-2 ${isMobile ? 'flex-col' : ''}`}>
         <div
-          className={`flex flex-1 items-center justify-center rounded-md bg-[#f2f4f6] text-[20px] ${
+          className={`flex flex-1 items-center justify-center overflow-hidden rounded-md bg-[#f2f4f6] ${
             isMobile ? 'min-h-[60px]' : ''
           }`}
         >
-          🎧
+          {/* Real product photo (Unsplash, same source already used by
+              scripts/seed-demo-store/images.json's sony-walkman entry in
+              this monorepo's sibling BusyBuddy_v2 repo) instead of a bare
+              placeholder icon. */}
+          <img
+            src="https://images.unsplash.com/photo-1611001716885-b3402558a62b?auto=format&fit=crop&w=200&h=200&q=70"
+            alt="Product preview"
+            className="h-full w-full object-cover"
+            loading="lazy"
+          />
         </div>
         <div className="flex flex-[1.2] flex-col gap-1">
           <div className="h-2 w-[90%] rounded-sm bg-[#222]" />
