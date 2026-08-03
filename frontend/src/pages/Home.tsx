@@ -40,11 +40,15 @@ export default function Home() {
         {/* Stat — top right on xl */}
         <div className="mt-8 text-right xl:absolute xl:right-10 xl:top-[130px] xl:z-[5] xl:mt-0">
           <div className="font-display text-[34px] leading-none">6+</div>
-          <div className="mt-1.5 whitespace-nowrap text-[13px] text-muted">Conversion Widgets</div>
+          <div className="mt-1.5 text-[13px] text-muted">
+            Conversion
+            <br />
+            Widgets
+          </div>
         </div>
 
         {/* Center device preview */}
-        <div className="mx-auto my-8 w-full max-w-[720px] xl:absolute xl:left-1/2 xl:top-[320px] xl:z-[2] xl:my-0 xl:max-w-[min(55vw,780px)] xl:-translate-x-1/2">
+        <div className="mx-auto my-8 w-full max-w-[720px] xl:absolute xl:left-1/2 xl:top-[180px] xl:z-[2] xl:my-0 xl:max-w-[55vw] xl:-translate-x-1/2">
           <DevicePreview widget={widget} />
         </div>
 

@@ -17,32 +17,19 @@ function WidgetScreen({ widget, isMobile }: ScreenProps) {
   return (
     <div className="absolute inset-0 flex flex-col gap-2 p-3 text-[10px]" style={style}>
       <div
-        className="flex h-[18px] items-center justify-center gap-1.5 rounded text-[8px] font-semibold text-white"
+        className="flex h-[18px] items-center justify-center rounded text-[8px] font-semibold text-white"
         style={{ background: 'var(--wcolor)' }}
       >
-        <span>{isAnnouncement ? widget.slotLabel : 'YOUR STORE'}</span>
-        {/* Real widget has a countdown-timer option
-            (extensions/bogo-shopify-app/assets/announcement-bar-extension.js) */}
-        {isAnnouncement && (
-          <span className="rounded-sm bg-black/20 px-1 py-[1px] font-mono tabular-nums">
-            06:14:22
-          </span>
-        )}
+        {isAnnouncement ? widget.slotLabel : 'YOUR STORE'}
       </div>
 
       <div className={`flex flex-1 gap-2 ${isMobile ? 'flex-col' : ''}`}>
         <div
-          className={`flex flex-1 items-center justify-center overflow-hidden rounded-md bg-[#f2f4f6] ${
+          className={`flex flex-1 items-center justify-center rounded-md bg-[#f2f4f6] text-[20px] ${
             isMobile ? 'min-h-[60px]' : ''
           }`}
         >
-          {/* Real product photo instead of the empty placeholder icon. */}
-          <img
-            src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=200&h=200&q=70"
-            alt="Product preview"
-            className="h-full w-full object-cover"
-            loading="lazy"
-          />
+          🎧
         </div>
         <div className="flex flex-[1.2] flex-col gap-1">
           <div className="h-2 w-[90%] rounded-sm bg-[#222]" />
@@ -70,53 +57,7 @@ function WidgetScreen({ widget, isMobile }: ScreenProps) {
                 color: 'var(--wcolor)',
               }}
             >
-              {/* Each app's real editor preview renders something visually
-                  distinct here - see BundleEditor/BuyXGetYEditor/
-                  VolumeDiscountEditor/MixAndMatchEditor's own render*Preview()
-                  functions in the BusyBuddy_v2 monorepo. */}
-              {widget.id === 'bundle' && (
-                <span className="flex items-center gap-1">
-                  <span className="h-3 w-3 rounded-sm bg-white/60" />
-                  <span
-                    className="flex h-2.5 w-2.5 items-center justify-center rounded-[2px] text-white"
-                    style={{ background: 'var(--wcolor)' }}
-                  >
-                    +
-                  </span>
-                  <span className="h-3 w-3 rounded-sm bg-white/60" />
-                  <span className="ml-1">Save 15%</span>
-                </span>
-              )}
-              {widget.id === 'bogo' && <span>YOU GET 1 FREE</span>}
-              {widget.id === 'volume' && (
-                <span className="flex items-center gap-1">
-                  <span className="rounded-sm bg-white/60 px-1">Buy 1</span>
-                  <span
-                    className="rounded-sm px-1 text-white"
-                    style={{ background: 'var(--wcolor)' }}
-                  >
-                    Buy 3 · 20% off
-                  </span>
-                </span>
-              )}
-              {widget.id === 'mixmatch' && (
-                <span className="flex items-center gap-1">
-                  {['1', '3', '5'].map((n) => (
-                    <span
-                      key={n}
-                      className="flex h-3.5 w-3.5 items-center justify-center rounded-full"
-                      style={
-                        n === '3'
-                          ? { background: 'var(--wcolor)', color: 'white' }
-                          : { background: 'rgba(255,255,255,0.6)' }
-                      }
-                    >
-                      {n}
-                    </span>
-                  ))}
-                </span>
-              )}
-              {widget.id === 'inactive' && <span>{widget.slotLabel}</span>}
+              {widget.slotLabel}
             </div>
           )}
           <div className="rounded bg-ink py-[5px] text-center text-[8px] font-semibold text-white">

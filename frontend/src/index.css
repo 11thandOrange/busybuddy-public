@@ -26,9 +26,9 @@
   /* Huge hero type — mirrors the mockup's Archivo Black display treatment. */
   .huge {
     font-family: theme('fontFamily.display');
-    font-size: clamp(40px, 6.5vw, 100px);
+    font-size: clamp(80px, 13vw, 200px);
     line-height: 0.88;
-    letter-spacing: -2px;
+    letter-spacing: -3px;
     text-transform: uppercase;
   }
   .huge .slash {
