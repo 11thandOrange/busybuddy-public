@@ -2,35 +2,46 @@ import { Link } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { SHOPIFY_APP_STORE_URL } from '../lib/constants';
 
+// Mirrors the real plans in BusyBuddy_v2's subscriptionConfig.js exactly
+// (maxApps/allowedApps/price/features) - Free only allows Announcement Bar
+// and Inactive Tab Message; Starter and Advanced can both use all 6 widgets,
+// the difference is how many can be enabled at once (3 vs 6). Plan
+// selection happens inside the app after install (see Plan.jsx), not on
+// this marketing site, so every tier's CTA leads to the App Store listing.
 const TIERS = [
   {
-    name: 'Starter',
+    name: 'Free',
     price: '$0',
     cadence: '/mo',
-    blurb: 'For new stores testing the waters.',
-    features: ['1 widget', 'Up to 1,000 views/mo', 'Community support'],
-    cta: 'Start free',
-    ctaHref: SHOPIFY_APP_STORE_URL,
+    blurb: 'Try one widget before you commit to more.',
+    features: [
+      '1 widget enabled',
+      'Announcement Bar or Inactive Tab Message',
+      'Basic messaging features',
+    ],
+    cta: 'Install Free',
     highlight: false,
   },
   {
-    name: 'Growth',
-    price: '$29',
+    name: 'Starter',
+    price: '$30',
     cadence: '/mo',
-    blurb: 'For scaling stores that want it all.',
-    features: ['All 6 widgets', 'Unlimited views', 'A/B testing', 'Priority support'],
-    cta: 'Start 14-day trial',
-    ctaHref: SHOPIFY_APP_STORE_URL,
+    blurb: 'For stores ready to run more than one widget.',
+    features: [
+      '3 widgets enabled at once',
+      'All 6 widgets available to choose from',
+      'Priority support',
+    ],
+    cta: 'Get Starter',
     highlight: true,
   },
   {
-    name: 'Plus',
-    price: 'Custom',
-    cadence: '',
-    blurb: 'For high-volume & agencies.',
-    features: ['Everything in Growth', 'Custom widgets', 'Dedicated CSM', 'SLA & SSO'],
-    cta: 'Talk to sales',
-    ctaHref: '/contact',
+    name: 'Advanced',
+    price: '$60',
+    cadence: '/mo',
+    blurb: 'Every widget, running at the same time.',
+    features: ['All 6 widgets enabled at once', 'Complete feature set', '24/7 support'],
+    cta: 'Get Advanced',
     highlight: false,
   },
 ];
@@ -43,7 +54,7 @@ export default function Pricing() {
           PRICING<span className="slash">/</span>
         </h1>
         <p className="mt-4 max-w-xl text-lg text-muted">
-          Simple, transparent pricing. Cancel anytime.
+          Simple, transparent pricing. Cancel anytime from inside the app.
         </p>
 
         <div className="mt-10 grid gap-6 md:grid-cols-3">
@@ -72,30 +83,27 @@ export default function Pricing() {
                   </li>
                 ))}
               </ul>
-              {t.ctaHref.startsWith('http') ? (
-                <a
-                  href={t.ctaHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`mt-8 rounded-full px-6 py-3 text-center text-sm font-semibold ${
-                    t.highlight ? 'bg-accent text-white' : 'bg-ink text-white'
-                  }`}
-                >
-                  {t.cta}
-                </a>
-              ) : (
-                <Link
-                  to={t.ctaHref}
-                  className={`mt-8 rounded-full px-6 py-3 text-center text-sm font-semibold ${
-                    t.highlight ? 'bg-accent text-white' : 'bg-ink text-white'
-                  }`}
-                >
-                  {t.cta}
-                </Link>
-              )}
+              <a
+                href={SHOPIFY_APP_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`mt-8 rounded-full px-6 py-3 text-center text-sm font-semibold ${
+                  t.highlight ? 'bg-accent text-white' : 'bg-ink text-white'
+                }`}
+              >
+                {t.cta}
+              </a>
             </div>
           ))}
         </div>
+
+        <p className="mt-8 text-center text-sm text-muted">
+          Have questions before you install?{' '}
+          <Link to="/contact" className="font-semibold text-ink underline">
+            Contact us
+          </Link>
+          .
+        </p>
       </div>
     </Layout>
   );
