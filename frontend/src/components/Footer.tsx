@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { SHOPIFY_APP_STORE_URL } from '../lib/constants';
 
 const COLUMNS = [
   {
@@ -6,14 +7,14 @@ const COLUMNS = [
     links: [
       { label: 'Widgets', to: '/widgets' },
       { label: 'Pricing', to: '/pricing' },
-      { label: 'Docs', to: '/docs' },
     ],
   },
   {
     title: 'Company',
     links: [
       { label: 'Blog', to: '/blog' },
-      { label: 'Get Started', to: '/get-started' },
+      { label: 'Contact', to: '/contact' },
+      { label: 'Get Started', to: SHOPIFY_APP_STORE_URL, external: true },
     ],
   },
 ];
@@ -37,9 +38,20 @@ export function Footer() {
             <ul className="flex flex-col gap-2">
               {col.links.map((l) => (
                 <li key={l.to + l.label}>
-                  <Link to={l.to} className="text-sm text-muted transition-colors hover:text-ink">
-                    {l.label}
-                  </Link>
+                  {'external' in l && l.external ? (
+                    <a
+                      href={l.to}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-muted transition-colors hover:text-ink"
+                    >
+                      {l.label}
+                    </a>
+                  ) : (
+                    <Link to={l.to} className="text-sm text-muted transition-colors hover:text-ink">
+                      {l.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

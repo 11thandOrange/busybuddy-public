@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Layout } from '../components/Layout';
+import { SHOPIFY_APP_STORE_URL } from '../lib/constants';
 
 const TIERS = [
   {
@@ -9,6 +10,7 @@ const TIERS = [
     blurb: 'For new stores testing the waters.',
     features: ['1 widget', 'Up to 1,000 views/mo', 'Community support'],
     cta: 'Start free',
+    ctaHref: SHOPIFY_APP_STORE_URL,
     highlight: false,
   },
   {
@@ -18,6 +20,7 @@ const TIERS = [
     blurb: 'For scaling stores that want it all.',
     features: ['All 6 widgets', 'Unlimited views', 'A/B testing', 'Priority support'],
     cta: 'Start 14-day trial',
+    ctaHref: SHOPIFY_APP_STORE_URL,
     highlight: true,
   },
   {
@@ -27,6 +30,7 @@ const TIERS = [
     blurb: 'For high-volume & agencies.',
     features: ['Everything in Growth', 'Custom widgets', 'Dedicated CSM', 'SLA & SSO'],
     cta: 'Talk to sales',
+    ctaHref: '/contact',
     highlight: false,
   },
 ];
@@ -68,14 +72,27 @@ export default function Pricing() {
                   </li>
                 ))}
               </ul>
-              <Link
-                to="/get-started"
-                className={`mt-8 rounded-full px-6 py-3 text-center text-sm font-semibold ${
-                  t.highlight ? 'bg-accent text-white' : 'bg-ink text-white'
-                }`}
-              >
-                {t.cta}
-              </Link>
+              {t.ctaHref.startsWith('http') ? (
+                <a
+                  href={t.ctaHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`mt-8 rounded-full px-6 py-3 text-center text-sm font-semibold ${
+                    t.highlight ? 'bg-accent text-white' : 'bg-ink text-white'
+                  }`}
+                >
+                  {t.cta}
+                </a>
+              ) : (
+                <Link
+                  to={t.ctaHref}
+                  className={`mt-8 rounded-full px-6 py-3 text-center text-sm font-semibold ${
+                    t.highlight ? 'bg-accent text-white' : 'bg-ink text-white'
+                  }`}
+                >
+                  {t.cta}
+                </Link>
+              )}
             </div>
           ))}
         </div>

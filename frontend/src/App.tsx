@@ -3,9 +3,9 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import Widgets from './pages/Widgets';
 import Pricing from './pages/Pricing';
-import Docs from './pages/Docs';
 import Blog from './pages/Blog';
-import GetStarted from './pages/GetStarted';
+import BlogPost from './pages/BlogPost';
+import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
 
 /** Reset scroll position on route change (but preserve in-page hash anchors). */
@@ -25,9 +25,9 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/widgets" element={<Widgets />} />
         <Route path="/pricing" element={<Pricing />} />
-        <Route path="/docs" element={<Docs />} />
         <Route path="/blog" element={<Blog />} />
-        <Route path="/get-started" element={<GetStarted />} />
+        <Route path="/blog/:slug" element={<BlogPost />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

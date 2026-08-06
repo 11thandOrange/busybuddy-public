@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { WIDGETS } from '@busybuddy/shared';
 import { Layout } from '../components/Layout';
 import { DevicePreview } from '../components/DevicePreview';
 import { Icon } from '../components/Icon';
+import { SHOPIFY_APP_STORE_URL } from '../lib/constants';
 
 export default function Widgets() {
   const location = useLocation();
@@ -80,12 +81,14 @@ export default function Widgets() {
                   </div>
                 ))}
               </div>
-              <Link
-                to={`/get-started?widget=${WIDGETS[active].id}`}
+              <a
+                href={SHOPIFY_APP_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-6 inline-block rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white"
               >
                 Get {WIDGETS[active].name}
-              </Link>
+              </a>
             </div>
           </div>
         </div>

@@ -7,7 +7,7 @@ import { submitWaitlist } from '../lib/api';
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 
-export default function GetStarted() {
+export default function Contact() {
   const [searchParams] = useSearchParams();
   const presetWidget = searchParams.get('widget') ?? '';
 
@@ -56,9 +56,9 @@ export default function GetStarted() {
           <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-[#e7f8ee] text-3xl">
             ✓
           </div>
-          <h1 className="font-display text-4xl">You're on the list!</h1>
+          <h1 className="font-display text-4xl">Message sent!</h1>
           <p className="mt-4 text-muted">
-            Thanks, {form.name.split(' ')[0] || 'friend'} — we'll be in touch at{' '}
+            Thanks, {form.name.split(' ')[0] || 'friend'} — we'll get back to you at{' '}
             <span className="font-semibold text-ink">{form.email}</span> shortly.
           </p>
           <button
@@ -86,10 +86,11 @@ export default function GetStarted() {
     <Layout>
       <div className="mx-auto max-w-xl">
         <h1 className="huge !text-[clamp(44px,8vw,96px)]">
-          GET<span className="slash">/</span>STARTED
+          CONTACT<span className="slash">/</span>
         </h1>
         <p className="mt-4 text-lg text-muted">
-          Tell us about your store and we'll get you set up with the right widgets.
+          Questions about BusyBuddy, a widget, or your plan? Tell us a bit about your store and
+          we'll get back to you.
         </p>
 
         <form onSubmit={onSubmit} className="mt-8 flex flex-col gap-5" noValidate>
@@ -160,7 +161,7 @@ export default function GetStarted() {
             disabled={status === 'submitting'}
             className="rounded-full bg-ink px-6 py-4 text-base font-semibold text-white disabled:opacity-50"
           >
-            {status === 'submitting' ? 'Submitting…' : 'Join the waitlist'}
+            {status === 'submitting' ? 'Sending…' : 'Send message'}
           </button>
         </form>
       </div>

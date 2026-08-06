@@ -1,11 +1,11 @@
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useState } from 'react';
+import { SHOPIFY_APP_STORE_URL } from '../lib/constants';
 
 const LINKS = [
   { to: '/', label: 'Home' },
   { to: '/widgets', label: 'Widgets' },
   { to: '/pricing', label: 'Pricing' },
-  { to: '/docs', label: 'Docs' },
   { to: '/blog', label: 'Blog' },
 ];
 
@@ -33,12 +33,14 @@ export function Nav() {
         ))}
       </nav>
 
-      <Link
-        to="/get-started"
+      <a
+        href={SHOPIFY_APP_STORE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
         className="ml-auto hidden rounded-full bg-ink px-[22px] py-3 text-[14px] font-semibold text-white md:inline-block"
       >
         Get Started
-      </Link>
+      </a>
 
       {/* Mobile hamburger */}
       <button
@@ -77,13 +79,15 @@ export function Nav() {
                 {l.label}
               </NavLink>
             ))}
-            <Link
-              to="/get-started"
+            <a
+              href={SHOPIFY_APP_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setOpen(false)}
               className="mt-1 rounded-full bg-ink px-[22px] py-3 text-center text-[14px] font-semibold text-white"
             >
               Get Started
-            </Link>
+            </a>
           </div>
         </div>
       )}
